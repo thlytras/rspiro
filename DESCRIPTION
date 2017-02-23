@@ -1,0 +1,18 @@
+Package: rspiro
+Type: Package
+Title: Spirometry equations for R
+Version: 0.1
+Date: 2017-02-23
+Author: Theodore Lytras
+Maintainer: Theodore Lytras <thlytras@gmail.com>
+Description: This package implements the GLI-2012 (Quanjer) 
+    spirometry equations in R. It allows user-friendly 
+    calculation of predicted (mean normal) and LLN (Lower 
+    Limit of Normal) values, as well as converting absolute 
+    measurements to percent (%) predicted, for the whole range 
+    of spirometric parameters (FEV1, FVC, FEV1FVC, etc).
+    More equations (Hankinson, etc) are to be added later.
+License: GPL (>=2)
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
