@@ -31,7 +31,9 @@ getLMS <- function(age, height, gender=1, ethnicity=1, param="FEV1") {
   dat <- rspiro_check_data(age, height, gender, ethnicity)
   dat$id <- 1:nrow(dat)
 
-  dat <- merge(dat, subset(lookup, f %in% param), sort=FALSE)
+  dat <- merge(dat, subset(lookup, f %in% param), sort=FALSE, all.x=TRUE)
+  dat <- dat[order(dat$id),]
+  dat$f[is.na(dat$f)] <- unique(dat$f[!is.na(dat$f)])
 
   dat$Lspline <- with(dat, l0 + (l1-l0)*(age-agebound)/0.25)
   dat$Mspline <- with(dat, m0 + (m1-m0)*(age-agebound)/0.25)
