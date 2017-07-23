@@ -68,7 +68,7 @@ pctpred_GLI <- function(age, height, gender=1, ethnicity=1,
   rownames(datw) <- NULL
   datw <- datw[order(datw$id),]
 
-  datw[,paste("pctpred", param, sep=".")]
+  datw[,paste("pctpred", unique(param), sep=".")]
 }
 
 

@@ -32,7 +32,7 @@ pred_GLI <- function(age, height, gender=1, ethnicity=1, param="FEV1") {
   datw <- datw[order(datw$id),]
   names(datw)[-(1:5)] <- gsub("M.", "pred.", names(datw)[-(1:5)], fixed=TRUE)
 
-  datw[,paste("pred", param, sep=".")]
+  datw[,paste("pred", unique(param), sep=".")]
 }
 
 

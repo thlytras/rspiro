@@ -32,5 +32,5 @@ LLN_GLI <- function(age, height, gender=1, ethnicity=1, param="FEV1") {
   rownames(datw) <- NULL
   datw <- datw[order(datw$id),]
 
-  datw[,paste("LLN", param, sep=".")]
+  datw[,paste("LLN", unique(param), sep=".")]
 }
