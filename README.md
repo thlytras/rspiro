@@ -18,6 +18,13 @@ If you do not have the package "devtools", first install it from CRAN with:
 
       install.packages("devtools")
 
+Alternatively, you can install and use package "githubinstall" to install rspiro:
+
+      install.packages("githubinstall")
+      library("githubinstall")
+      githubinstall("rspiro")
+
+
 **Acknowledgement**
 
 This package uses the lookup table included with the [R code provided by
