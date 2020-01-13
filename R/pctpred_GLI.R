@@ -11,11 +11,11 @@
 #' 5 = Other/mixed). Default is 1.
 #' @param FEV1 Forced Expiratory Volume in 1 second (lt)
 #' @param FVC Forced Vital Capacity (lt)
-#' @param FEV1FVC FEV1 / FVC * 100\%
+#' @param FEV1FVC FEV1 / FVC ratio
 #' @param FEF2575 Forced Expiratory Flow between 25\% and 75\% of FVC (lt/s)
 #' @param FEF75 Forced Expiratory Flow at 75\% of FVC (lt/s)
 #' @param FEV075 Forced Expiratory Volume in 0.75 sec (lt)
-#' @param FEV075FVC FEV0.75 / FVC * 100\%
+#' @param FEV075FVC FEV0.75 / FVC ratio 
 #'
 #' @details At least one of the spirometric parameters must be set (i.e. be
 #' non-\code{NULL}). Arguments \code{age}, \code{height}, \code{gender} and
