@@ -3,3 +3,4 @@
 export(LLN_GLI)
 export(pctpred_GLI)
 export(pred_GLI)
+export(zscore_GLI)
