@@ -6,23 +6,18 @@ and LLN (Lower Limit of Normal) values, as well as converting absolute
 measurements to percent (%) predicted, for the whole range of spirometric
 parameters (FEV1, FVC, FEV1FVC, etc).
 
-More equations (Hankinson, etc) will be implemented later.
+In similar fashion, `rspiro` implements the older NHANES III equations (Hankinson). 
+More spirometry equations may be added later.
 
 **Installation**
 
 Open R, and give:
 
-      devtools::install_git("https://github.com/thlytras/rspiro.git")
+      devtools::install_github("thlytras/rspiro")
 
 If you do not have the package "devtools", first install it from CRAN with:
 
       install.packages("devtools")
-
-Alternatively, you can install and use package "githubinstall" to install rspiro:
-
-      install.packages("githubinstall")
-      library("githubinstall")
-      githubinstall("rspiro")
 
 
 **Acknowledgement**

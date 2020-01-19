@@ -4,9 +4,19 @@
 \alias{pctpred_GLI}
 \title{Calculate \% predicted values for spirometry parameters using GLI-2012 equations}
 \usage{
-pctpred_GLI(age, height, gender = 1, ethnicity = 1, FEV1 = NULL,
-  FVC = NULL, FEV1FVC = NULL, FEF2575 = NULL, FEF75 = NULL,
-  FEV075 = NULL, FEV075FVC = NULL)
+pctpred_GLI(
+  age,
+  height,
+  gender = 1,
+  ethnicity = 1,
+  FEV1 = NULL,
+  FVC = NULL,
+  FEV1FVC = NULL,
+  FEF2575 = NULL,
+  FEF75 = NULL,
+  FEV075 = NULL,
+  FEV075FVC = NULL
+)
 }
 \arguments{
 \item{age}{Age in years}
@@ -22,7 +32,7 @@ pctpred_GLI(age, height, gender = 1, ethnicity = 1, FEV1 = NULL,
 
 \item{FVC}{Forced Vital Capacity (lt)}
 
-\item{FEV1FVC}{FEV1 / FVC * 100\%}
+\item{FEV1FVC}{FEV1 / FVC ratio}
 
 \item{FEF2575}{Forced Expiratory Flow between 25\% and 75\% of FVC (lt/s)}
 
@@ -30,7 +40,7 @@ pctpred_GLI(age, height, gender = 1, ethnicity = 1, FEV1 = NULL,
 
 \item{FEV075}{Forced Expiratory Volume in 0.75 sec (lt)}
 
-\item{FEV075FVC}{FEV0.75 / FVC * 100\%}
+\item{FEV075FVC}{FEV0.75 / FVC ratio}
 }
 \value{
 If only one spirometric parameter vector is supplied, the function

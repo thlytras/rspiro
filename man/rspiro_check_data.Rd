@@ -2,9 +2,9 @@
 % Please edit documentation in R/include.R
 \name{rspiro_check_data}
 \alias{rspiro_check_data}
-\title{Check input data for LLN_GLI()}
+\title{Check input data}
 \usage{
-rspiro_check_data(age, height, gender, ethnicity)
+rspiro_check_data(age, height, gender, ethnicity, NHANES = FALSE)
 }
 \arguments{
 \item{age}{Age in years}
@@ -13,14 +13,19 @@ rspiro_check_data(age, height, gender, ethnicity)
 
 \item{gender}{Gender (1 = male, 2 = female) or a factor with two levels (first = male)}
 
-\item{ethnicity}{Ethnicity (1 = Caucasian, 2 = African-American, 3 = NE Asian, 4 = SE Asian, 5 = Other/mixed)}
+\item{ethnicity}{Ethnicity (GLI: 1 = Caucasian, 2 = African-American, 
+3 = NE Asian, 4 = SE Asian, 5 = Other/mixed, NHANES: 1 = Caucasian, 
+2 = African-American, 3 = Mexican-American)}
+
+\item{NHANES}{Logical. Is input data for the NHANES III equations? 
+Defaults to \code{FALSE}.}
 }
 \value{
 Returns a data frame with these four columns plus a column 'agebound', which is
 age rounded to the lowest 0.25 of the year.
 }
 \description{
-This functions checks the supplied input for LLN_GLI() and returns a
+This functions checks the supplied input and returns a
 properly formatted data.frame
 }
 \keyword{internal}
