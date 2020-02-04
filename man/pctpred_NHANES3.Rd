@@ -2,7 +2,7 @@
 % Please edit documentation in R/pctpred_NHANES3.R
 \name{pctpred_NHANES3}
 \alias{pctpred_NHANES3}
-\title{Calculate \% predicted values for spirometry parameters using NHANES III equations}
+\title{Convert spirometric values to \% predicted using NHANES III equations}
 \usage{
 pctpred_NHANES3(
   age,
@@ -43,20 +43,20 @@ pctpred_NHANES3(
 \item{FEV1FEV6}{FEV1 / FEV6 ratio}
 }
 \value{
-If only one spirometric parameter vector is supplied, the function
-returns a numeric vector. If more are supplied, it returns a data.frame with
-the same number of columns.
+If only one spirometry argument is supplied, the function
+returns a numeric vector. If more are supplied, the function returns 
+a data.frame with the same number of columns.
 }
 \description{
 This function takes absolute spirometry measurements (FEV1, FVC, etc)
-in lt plus person data (age, height, gender and ethnicity) and converts
+in lt plus demographic data (age, height, gender and ethnicity) and converts
 them to percent (\%) predicted based on the NHANES III equations.
 }
 \details{
-At least one of the spirometric parameters must be set (i.e. be
+At least one of the spirometric measurement arguments must be set (i.e. be
 non-\code{NULL}). Arguments \code{age}, \code{height}, \code{gender} and
 \code{ethnicity} must be vectors of length equal to the length of the
-spirometric parameter vector(s), or of length one, in which case their
+spirometric measurement vector(s), or of length one, in which case their
 value is recycled. If any input vector is not of equal length, the function
 stops with an error.
 }

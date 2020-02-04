@@ -2,7 +2,7 @@
 % Please edit documentation in R/zscores_GLI.R
 \name{zscore_GLI}
 \alias{zscore_GLI}
-\title{Calculate z-scores for spirometry parameters using GLI-2012 equations}
+\title{Convert spirometric values to z-scores using GLI-2012 equations}
 \usage{
 zscore_GLI(
   age,
@@ -43,20 +43,20 @@ zscore_GLI(
 \item{FEV075FVC}{FEV0.75 / FVC * 100\%}
 }
 \value{
-If only one spirometric parameter vector is supplied, the function
-returns a numeric vector. If more are supplied, it returns a data.frame with
-the same number of columns.
+If only one spirometry argument is supplied, the function
+returns a numeric vector. If more are supplied, the function returns 
+a data.frame with the same number of columns.
 }
 \description{
 This function takes absolute spirometry measurements (FEV1, FVC, etc)
-in lt plus person data (age, height, gender and ethnicity) and converts
+in lt plus demographic data (age, height, gender and ethnicity) and converts
 them to z-scores based on the GLI-2012 equations.
 }
 \details{
-At least one of the spirometric parameters must be set (i.e. be
+At least one of the spirometric measurement arguments must be set (i.e. be
 non-\code{NULL}). Arguments \code{age}, \code{height}, \code{gender} and
 \code{ethnicity} must be vectors of length equal to the length of the
-spirometric parameter vector(s), or of length one, in which case their
+spirometric measurement vector(s), or of length one, in which case their
 value is recycled. If any input vector is not of equal length, the function
 stops with an error.
 }
