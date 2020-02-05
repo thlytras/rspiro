@@ -33,6 +33,8 @@
 #' pctpred_GLI(age=seq(25,40,5), height=c(1.8, 1.9, 1.75, 1.85),
 #'       gender=c(2,1,2,1), FEV1=c(3.5, 4, 3.6, 3.9))
 #'
+#' @importFrom stats reshape
+#' 
 #' @export
 pctpred_GLI <- function(age, height, gender=1, ethnicity=1,
         FEV1=NULL, FVC=NULL, FEV1FVC=NULL, FEF2575=NULL,
