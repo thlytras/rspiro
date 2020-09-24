@@ -23,9 +23,10 @@
 #' LLN_GLI(20:70, 1.7, 2, param=c("FEV1","FVC"))
 #'
 #' @importFrom stats reshape
-#' 
+#'
 #' @export
 pred_GLI <- function(age, height, gender=1, ethnicity=1, param="FEV1") {
+  param <- toupper(param)
   dat <- getLMS(age, height, gender, ethnicity, param)
 
   datw <- reshape(dat[,c("id","f", "age","height","ethnicity","gender","M")],

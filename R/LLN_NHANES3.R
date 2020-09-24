@@ -6,7 +6,7 @@
 #' @param age Age in years
 #' @param height Height in meters
 #' @param gender Gender (1 = male, 2 = female) or a factor with two levels (first = male). Default is 1.
-#' @param ethnicity Ethnicity (1 = Caucasian, 2 = African-American, 
+#' @param ethnicity Ethnicity (1 = Caucasian, 2 = African-American,
 #'   3 = Mexican-American). Default is 1.
 #' @param param A character vector, containing one of more of the following parameters (case insensitive):
 #' "FEV1", "FVC", "FEV1FVC", "PEF", "FEF2575", "FEV6", "FEV1FEV6"
@@ -24,15 +24,16 @@
 #'
 #' @export
 LLN_NHANES3 <- function(age, height, gender=1, ethnicity=1, param="FEV1") {
+  param <- toupper(param)
   param <- param[param %in% c("FEV1", "FVC", "FEV1FVC", "PEF", "FEF2575", "FEV6", "FEV1FEV6")]
   if (length(param)==0) stop("No valid parameters found in argument 'param'!")
-  
+
   dat <- rspiro_check_data(age, height, gender, ethnicity, NHANES=TRUE)
   dat$under20 <- dat$age<20
   dat$age2 <- dat$age^2
   dat$Intercept <- 1
   dat$height2 <- (dat$height * 100)^2
-  
+
   for (p in param) {
     if (p %in% c("FEV1FVC", "FEV1FEV6")) {
       cf <- t(mapply(function(p, gend, ethn) { NHtb6[
@@ -50,7 +51,7 @@ LLN_NHANES3 <- function(age, height, gender=1, ethnicity=1, param="FEV1") {
       dat[[paste0("pred.", p)]] <- unname(rowSums(dat[,c("Intercept","age","age2","height2")]*cf))
     }
   }
-  
+
   return(dat[,grep("pred", names(dat), fixed=TRUE)])
 
 }
