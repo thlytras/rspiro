@@ -1,7 +1,7 @@
 Package: rspiro
 Type: Package
 Title: Implementation of Spirometry Equations
-Version: 0.2
+Version: 0.3
 Date: 2020-02-17
 Author: Theodore Lytras
 Maintainer: Theodore Lytras <thlytras@gmail.com>
