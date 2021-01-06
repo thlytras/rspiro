@@ -6,7 +6,10 @@ lookup$f <- reorder(lookup$f, match(lookup$f, unique(lookup$f)))
 attr(lookup$f, "scores") <- NULL
 names(lookup)[names(lookup)=="sex"] <- "gender"
 
+# Load the NHANES data:
+NHtb45 <- read.table(file="NHtb45.csv", header = TRUE, sep = ",")
+NHtb6 <- read.table(file="NHtb6.csv", header = TRUE, sep = ",")
 
 cat("Creating sysdata.rda...\n")
-devtools::use_data(lookup, internal=TRUE)
+usethis::use_data(NHtb45, NHtb6, lookup, internal=TRUE)
 
