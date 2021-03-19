@@ -1,7 +1,7 @@
 Package: rspiro
 Type: Package
 Title: Implementation of Spirometry Equations
-Version: 0.2
+Version: 0.3
 Date: 2020-02-17
 Author: Theodore Lytras
 Maintainer: Theodore Lytras <thlytras@gmail.com>
@@ -20,4 +20,6 @@ Description: Implementation of various spirometry equations
 License: GPL (>=2)
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.1
+Depends: 
+    R (>= 2.10)

@@ -13,7 +13,7 @@ pred_NHANES3(age, height, gender = 1, ethnicity = 1, param = "FEV1")
 
 \item{gender}{Gender (1 = male, 2 = female) or a factor with two levels (first = male). Default is 1.}
 
-\item{ethnicity}{Ethnicity (1 = Caucasian, 2 = African-American, 
+\item{ethnicity}{Ethnicity (1 = Caucasian, 2 = African-American,
 3 = Mexican-American). Default is 1.}
 
 \item{param}{A character vector, containing one of more of the following parameters (case insensitive):
