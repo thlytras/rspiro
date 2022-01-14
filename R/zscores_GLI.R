@@ -47,14 +47,14 @@ zscore_GLI <- function(age, height, gender=1, ethnicity=1,
     stop("At least one spirometry parameter must be specified.")
   val_len <- unique(sapply(val, length))
   if (length(val_len)>1)
-    stop("Not all spirometry parameter vactors have the same length.")
+    stop("Not all spirometry parameter vectors have the same length.")
   dat <- getLMS(age, height, gender, ethnicity, param)
   if (nrow(dat)==1 && val_len>1) {
     dat <- dat[rep(1,val_len),]
     rownames(dat) <- NULL
     dat$id <- 1:nrow(dat)
   }
-  if (nrow(dat)!=val_len)
+  if (nrow(dat)!=val_len*length(val))
     stop("Spirometry parameter vector(s) and somatometric vectors
          (age, height, gender, ethnicity) do not have the same length.")
 
@@ -72,5 +72,3 @@ zscore_GLI <- function(age, height, gender=1, ethnicity=1,
 
   datw[,paste("z.score", unique(param), sep=".")]
 }
-
-

@@ -54,7 +54,7 @@ pctpred_GLI <- function(age, height, gender=1, ethnicity=1,
     rownames(dat) <- NULL
     dat$id <- 1:nrow(dat)
   }
-  if (nrow(dat)!=val_len)
+  if (nrow(dat)!=val_len*length(val))
     stop("Spirometry parameter vector(s) and somatometric vectors
          (age, height, gender, ethnicity) do not have the same length.")
 
