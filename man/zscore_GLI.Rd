@@ -44,7 +44,7 @@ zscore_GLI(
 }
 \value{
 If only one spirometry argument is supplied, the function
-returns a numeric vector. If more are supplied, the function returns 
+returns a numeric vector. If more are supplied, the function returns
 a data.frame with the same number of columns.
 }
 \description{
@@ -62,7 +62,7 @@ stops with an error.
 }
 \examples{
 # Random data, 4 patients, one parameter supplied (FEV1)
-zscore_GLI(age=seq(25,40,5), height=c(1.8, 1.9, 1.75, 1.85),
-      gender=c(2,1,2,1), FEV1=c(3.5, 4, 3.6, 3.9))
+zscore_GLI(age=seq(25,40,4), height=c(1.8, 1.9, 1.75, 1.85),
+      gender=c(2,1,2,1), ethnicity=rep(1,4), FEV1=c(3.5, 4, 3.6, 3.9))
 
 }

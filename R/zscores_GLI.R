@@ -25,40 +25,52 @@
 #' stops with an error.
 #'
 #' @return If only one spirometry argument is supplied, the function
-#' returns a numeric vector. If more are supplied, the function returns 
+#' returns a numeric vector. If more are supplied, the function returns
 #' a data.frame with the same number of columns.
 #'
 #' @examples
 #' # Random data, 4 patients, one parameter supplied (FEV1)
-#' zscore_GLI(age=seq(25,40,5), height=c(1.8, 1.9, 1.75, 1.85),
-#'       gender=c(2,1,2,1), FEV1=c(3.5, 4, 3.6, 3.9))
+#' zscore_GLI(age=seq(25,40,4), height=c(1.8, 1.9, 1.75, 1.85),
+#'       gender=c(2,1,2,1), ethnicity=rep(1,4), FEV1=c(3.5, 4, 3.6, 3.9))
 #'
 #' @importFrom stats reshape
-#' 
+#'
 #' @export
 zscore_GLI <- function(age, height, gender=1, ethnicity=1,
         FEV1=NULL, FVC=NULL, FEV1FVC=NULL, FEF2575=NULL,
         FEF75=NULL, FEV075=NULL, FEV075FVC=NULL) {
-  val <- list(FEV1=FEV1, FVC=FVC, FEV1FVC=FEV1FVC, FEF2575=FEF2575,
+
+  spiro_val <- list(FEV1=FEV1, FVC=FVC, FEV1FVC=FEV1FVC, FEF2575=FEF2575,
               FEF75=FEF75, FEV075=FEV075, FEV075FVC=FEV075FVC)
-  val <- val[!sapply(val, is.null)]
-  param <- names(val)
-  if (length(val)==0)
+  spiro_val <- spiro_val[!sapply(spiro_val, is.null)]
+  somat_val <- list(age, height, gender, ethnicity)
+  spiro_val_len <- unique(sapply(spiro_val, length))
+  somat_val_len <- unique(sapply(somat_val, length))
+  stopifnot(is.numeric(age))
+  stopifnot(is.numeric(height))
+  if (length(spiro_val)==0)
     stop("At least one spirometry parameter must be specified.")
-  val_len <- unique(sapply(val, length))
-  if (length(val_len)>1)
+  if (length(spiro_val_len)>1)
     stop("Not all spirometry parameter vectors have the same length.")
+  if (length(somat_val_len)>1)
+    stop("Not all somatometric (age, height, gender, ethnicity) vectors have the same length.")
+  if ((somat_val_len!=1) && (somat_val_len!=spiro_val_len))
+    stop("If somatometric (age, height, gender, ethnicity) are not length 1, they must all be specified and be the same length as spirometry parameter vectors.")
+
+  if(!all(is.numeric(unlist(spiro_val)))){stop("Spirometry values must be numeric.")}
+  if (!(all(as.character(gender) %in% c('1','2')) || ((is.factor(gender) && (length(levels(gender))==2))))){stop("invalid value supplied for gender")}
+  if (is.factor(gender) && grepl('[fFwW]', levels(gender)[1])){message(sprintf("First level of factor gender ('%s') is assumed to be male.", levels(gender)[1]))}
+  if (!all(as.character(ethnicity) %in% c('1','2','3','4','5')) ){stop("invalid value supplied for ethnicity")}
+
+  param <- names(spiro_val)
   dat <- getLMS(age, height, gender, ethnicity, param)
-  if (nrow(dat)==1 && val_len>1) {
-    dat <- dat[rep(1,val_len),]
+  if (nrow(dat)==1 && spiro_val_len>1) {
+    dat <- dat[rep(1,spiro_val_len),]
     rownames(dat) <- NULL
     dat$id <- 1:nrow(dat)
   }
-  if (nrow(dat)!=val_len*length(val))
-    stop("Spirometry parameter vector(s) and somatometric vectors
-         (age, height, gender, ethnicity) do not have the same length.")
 
-  val <- as.data.frame.matrix(do.call(cbind, val))
+  val <- as.data.frame.matrix(do.call(cbind, spiro_val))
   val$id <- 1:nrow(val)
   val <- reshape(val, direction="long", varying=param, times=param, timevar="f", v.names="obs")
   dat <- merge(dat, val)
