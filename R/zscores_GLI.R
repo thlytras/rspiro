@@ -49,18 +49,21 @@ zscore_GLI <- function(age, height, gender=1, ethnicity=1,
   stopifnot(is.numeric(age))
   stopifnot(is.numeric(height))
   if (length(spiro_val)==0)
-    stop("At least one spirometry parameter must be specified.")
+    stop("At least one spirometry z-score parameter must be specified.")
   if (length(spiro_val_len)>1)
-    stop("Not all spirometry parameter vectors have the same length.")
+    stop("Not all spirometry z-score parameter vectors have the same length.")
   if (length(somat_val_len)>1)
     stop("Not all somatometric (age, height, gender, ethnicity) vectors have the same length.")
   if ((somat_val_len!=1) && (somat_val_len!=spiro_val_len))
-    stop("If somatometric (age, height, gender, ethnicity) are not length 1, they must all be specified and be the same length as spirometry parameter vectors.")
-
-  if(!all(is.numeric(unlist(spiro_val)))){stop("Spirometry values must be numeric.")}
-  if (!(all(as.character(gender) %in% c('1','2')) || ((is.factor(gender) && (length(levels(gender))==2))))){stop("invalid value supplied for gender")}
-  if (is.factor(gender) && grepl('[fFwW]', levels(gender)[1])){message(sprintf("First level of factor gender ('%s') is assumed to be male.", levels(gender)[1]))}
-  if (!all(as.character(ethnicity) %in% c('1','2','3','4','5')) ){stop("invalid value supplied for ethnicity")}
+    stop("If somatometric (age, height, gender, ethnicity) are not length 1, they must all be specified and be the same length as spirometry z-score parameter vectors.")
+  if(!all(is.numeric(unlist(spiro_val))))
+    stop("Spirometry z-scores must be numeric.")
+  if (!(all(as.character(gender) %in% c('1','2')) || ((is.factor(gender) && (length(levels(gender))==2)))))
+    stop("Invalid value supplied for gender")
+  if (is.factor(gender) && grepl('[fFwW]', levels(gender)[1]))
+    message(sprintf("First level of factor gender ('%s') is assumed to be male.", levels(gender)[1]))
+  if (!all(as.character(ethnicity) %in% c('1','2','3','4','5')))
+    stop("Invalid value supplied for ethnicity")
 
   param <- names(spiro_val)
   dat <- getLMS(age, height, gender, ethnicity, param)
