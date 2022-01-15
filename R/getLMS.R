@@ -28,7 +28,7 @@ getLMS <- function(age, height, gender=1, ethnicity=1, param="FEV1") {
   if (sum(!(param %in% levels(lookup$f)))>0)
     stop(sprintf("Argument 'param' must be one or more of \"%s\".",
         paste(levels(lookup$f), collapse='", "')))
-  dat <- rspiro_check_data(age, height, gender, ethnicity)
+  dat <- rspiro_check_somat(age, height, gender, ethnicity)
   dat$id <- 1:nrow(dat)
 
   dat <- do.call(rbind, lapply(param, function(x) {dat$f <- x; dat}))

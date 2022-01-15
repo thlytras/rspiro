@@ -19,8 +19,8 @@
 #' has length >1, it returns a data.frame with \code{length(param)} columns.
 #'
 #' @examples
-#' # Find LLN of FEV1 and FVC for Caucasian women aged 20 to 70 and with a height of 1.70 meters.
-#' LLN_GLI(20:70, 1.7, 2, param=c("FEV1","FVC"))
+#' # Find predicted FEV1 and FVC for Caucasian women aged 20 to 70 and with a height of 1.70 meters.
+#' pred_GLI(20:70, 1.7, 2, param=c("FEV1","FVC"))
 #'
 #' @importFrom stats reshape
 #'

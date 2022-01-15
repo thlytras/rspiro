@@ -43,30 +43,12 @@ zscore_GLI <- function(age, height, gender=1, ethnicity=1,
   spiro_val <- list(FEV1=FEV1, FVC=FVC, FEV1FVC=FEV1FVC, FEF2575=FEF2575,
               FEF75=FEF75, FEV075=FEV075, FEV075FVC=FEV075FVC)
   spiro_val <- spiro_val[!sapply(spiro_val, is.null)]
-  somat_val <- list(age, height, gender, ethnicity)
   spiro_val_len <- unique(sapply(spiro_val, length))
-  somat_val_len <- unique(sapply(somat_val, length))
-  stopifnot(is.numeric(age))
-  stopifnot(is.numeric(height))
-  if (length(spiro_val)==0)
-    stop("At least one spirometry z-score parameter must be specified.")
-  if (length(spiro_val_len)>1)
-    stop("Not all spirometry z-score parameter vectors have the same length.")
-  if (length(somat_val_len)>1)
-    stop("Not all somatometric (age, height, gender, ethnicity) vectors have the same length.")
-  if ((somat_val_len!=1) && (somat_val_len!=spiro_val_len))
-    stop("If somatometric (age, height, gender, ethnicity) are not length 1, they must all be specified and be the same length as spirometry z-score parameter vectors.")
-  if(!all(is.numeric(unlist(spiro_val))))
-    stop("Spirometry z-scores must be numeric.")
-  if (!(all(as.character(gender) %in% c('1','2')) || ((is.factor(gender) && (length(levels(gender))==2)))))
-    stop("Invalid value supplied for gender")
-  if (is.factor(gender) && grepl('[fFwW]', levels(gender)[1]))
-    message(sprintf("First level of factor gender ('%s') is assumed to be male.", levels(gender)[1]))
-  if (!all(as.character(ethnicity) %in% c('1','2','3','4','5')))
-    stop("Invalid value supplied for ethnicity")
+  somat_val <- rspiro_check_somat(age, height, gender, ethnicity)
+  rspiro_check_input(spiro_val, somat_val)
 
   param <- names(spiro_val)
-  dat <- getLMS(age, height, gender, ethnicity, param)
+  dat <- with(somat_val, getLMS(age, height, gender, ethnicity, param))
   if (nrow(dat)==1 && spiro_val_len>1) {
     dat <- dat[rep(1,spiro_val_len),]
     rownames(dat) <- NULL

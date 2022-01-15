@@ -39,26 +39,22 @@
 pctpred_GLI <- function(age, height, gender=1, ethnicity=1,
         FEV1=NULL, FVC=NULL, FEV1FVC=NULL, FEF2575=NULL,
         FEF75=NULL, FEV075=NULL, FEV075FVC=NULL) {
-  val <- list(FEV1=FEV1, FVC=FVC, FEV1FVC=FEV1FVC, FEF2575=FEF2575,
+  spiro_val <- list(FEV1=FEV1, FVC=FVC, FEV1FVC=FEV1FVC, FEF2575=FEF2575,
               FEF75=FEF75, FEV075=FEV075, FEV075FVC=FEV075FVC)
-  val <- val[!sapply(val, is.null)]
-  param <- names(val)
-  if (length(val)==0)
-    stop("At least one spirometry parameter must be specified.")
-  val_len <- unique(sapply(val, length))
-  if (length(val_len)>1)
-    stop("Not all spirometry parameter vactors have the same length.")
-  dat <- getLMS(age, height, gender, ethnicity, param)
-  if (nrow(dat)==1 && val_len>1) {
-    dat <- dat[rep(1,val_len),]
+  spiro_val <- spiro_val[!sapply(spiro_val, is.null)]
+  spiro_val_len <- unique(sapply(spiro_val, length))
+  somat_val <- rspiro_check_somat(age, height, gender, ethnicity)
+  rspiro_check_input(spiro_val, somat_val)
+  
+  param <- names(spiro_val)
+  dat <- with(somat_val, getLMS(age, height, gender, ethnicity, param))
+  if (nrow(dat)==1 && spiro_val_len>1) {
+    dat <- dat[rep(1,spiro_val_len),]
     rownames(dat) <- NULL
     dat$id <- 1:nrow(dat)
   }
-  if (nrow(dat)!=val_len*length(val))
-    stop("Spirometry parameter vector(s) and somatometric vectors
-         (age, height, gender, ethnicity) do not have the same length.")
-
-  val <- as.data.frame.matrix(do.call(cbind, val))
+  
+  val <- as.data.frame.matrix(do.call(cbind, spiro_val))
   val$id <- 1:nrow(val)
   val <- reshape(val, direction="long", varying=param, times=param, timevar="f", v.names="obs")
   dat <- merge(dat, val)

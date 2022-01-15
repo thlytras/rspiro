@@ -21,8 +21,8 @@ If you do not have the package "devtools", first install it from CRAN with:
 
 **Acknowledgement**
 
-This package uses the lookup table included with the [R code provided by
-the GLI initiative](http://www.ers-education.org/guidelines/global-lung-function-initiative/tools/r-macro.aspx), 
+This package uses the lookup tables provided by the [GLI 
+initiative](https://www.ers-education.org/guidelines/global-lung-function-initiative/spirometry-tools/it-engineers-and-manufacturers/), 
 to whom I'm grateful for their work.
 
 **Disclaimer**

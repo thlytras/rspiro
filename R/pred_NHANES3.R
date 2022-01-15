@@ -28,7 +28,7 @@ pred_NHANES3 <- function(age, height, gender=1, ethnicity=1, param="FEV1") {
   param <- param[param %in% c("FEV1", "FVC", "FEV1FVC", "PEF", "FEF2575", "FEV6", "FEV1FEV6")]
   if (length(param)==0) stop("No valid parameters found in argument 'param'!")
 
-  dat <- rspiro_check_data(age, height, gender, ethnicity, NHANES=TRUE)
+  dat <- rspiro_check_somat(age, height, gender, ethnicity, NHANES=TRUE)
   dat$under20 <- dat$age<20
   dat$age2 <- dat$age^2
   dat$Intercept <- 1

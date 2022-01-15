@@ -37,24 +37,24 @@
 pctpred_NHANES3 <- function(age, height, gender=1, ethnicity=1,
         FEV1=NULL, FVC=NULL, FEV1FVC=NULL, PEF=NULL, FEF2575=NULL,
         FEV6=NULL, FEV1FEV6=NULL) {
-  val <- list(FEV1=FEV1, FVC=FVC, FEV1FVC=FEV1FVC, PEF=PEF, 
+  spiro_val <- list(FEV1=FEV1, FVC=FVC, FEV1FVC=FEV1FVC, PEF=PEF, 
               FEF2575=FEF2575, FEV6=FEV6, FEV1FEV6=FEV1FEV6)
-  val <- val[!sapply(val, is.null)]
-  param <- names(val)
-  if (length(val)==0)
+  spiro_val <- spiro_val[!sapply(spiro_val, is.null)]
+  param <- names(spiro_val)
+  if (length(spiro_val)==0)
     stop("At least one spirometry parameter must be specified.")
-  val_len <- unique(sapply(val, length))
-  if (length(val_len)>1)
+  spiro_val_len <- unique(sapply(spiro_val, length))
+  if (length(spiro_val_len)>1)
     stop("Not all spirometry parameter vactors have the same length.")
   preds <- pred_NHANES3(age, height, gender, ethnicity, param)
-  if ((length(param)==1 && length(preds)!=val_len) || (length(param)>1 && nrow(preds)!=val_len))
+  if ((length(param)==1 && length(preds)!=spiro_val_len) || (length(param)>1 && nrow(preds)!=spiro_val_len))
     stop("Spirometry parameter vector(s) and somatometric vectors
          (age, height, gender, ethnicity) do not have the same length.")
   if (length(param)>1) {
-    res <- as.data.frame(val)/preds*100
+    res <- as.data.frame(spiro_val)/preds*100
     names(res) <- paste0("pctpred.", names(res))
   } else {
-    res <- unname(unlist(val)/preds*100)
+    res <- unname(unlist(spiro_val)/preds*100)
   }
   return(res)
 }

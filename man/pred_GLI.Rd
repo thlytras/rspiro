@@ -33,7 +33,7 @@ of equal length, or of length one, in which case the value is recycled; if the f
 not of equal length, the function stops with an error.
 }
 \examples{
-# Find LLN of FEV1 and FVC for Caucasian women aged 20 to 70 and with a height of 1.70 meters.
-LLN_GLI(20:70, 1.7, 2, param=c("FEV1","FVC"))
+# Find predicted FEV1 and FVC for Caucasian women aged 20 to 70 and with a height of 1.70 meters.
+pred_GLI(20:70, 1.7, 2, param=c("FEV1","FVC"))
 
 }

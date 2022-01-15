@@ -28,7 +28,7 @@ LLN_NHANES3 <- function(age, height, gender=1, ethnicity=1, param="FEV1") {
   param <- param[param %in% c("FEV1", "FVC", "FEV1FVC", "PEF", "FEF2575", "FEV6", "FEV1FEV6")]
   if (length(param)==0) stop("No valid parameters found in argument 'param'!")
 
-  dat <- rspiro_check_data(age, height, gender, ethnicity, NHANES=TRUE)
+  dat <- rspiro_check_somat(age, height, gender, ethnicity, NHANES=TRUE)
   dat$under20 <- dat$age<20
   dat$age2 <- dat$age^2
   dat$Intercept <- 1
@@ -41,18 +41,18 @@ LLN_NHANES3 <- function(age, height, gender=1, ethnicity=1, param="FEV1") {
         c("interceptLLN", "Age")]
       }, p=p, gend=dat$gender, ethn=dat$ethnicity))
       cf <- matrix(as.numeric(cf), ncol=ncol(cf), nrow=nrow(cf), dimnames=dimnames(cf))
-      dat[[paste0("pred.", p)]] <- unname(rowSums(dat[,c("Intercept","age")]*cf))/100
+      dat[[paste0("LLN.", p)]] <- unname(rowSums(dat[,c("Intercept","age")]*cf))/100
     } else {
       cf <- t(mapply(function(p, gend, ethn, u20) { NHtb45[
         with(NHtb45, which(param==p & sex==gend & ethnicity==ethn & under20==u20)),
         c("intercept", "age", "age2", "HtLLN")]
       }, p=p, gend=dat$gender, ethn=dat$ethnicity, u20=dat$under20))
       cf <- matrix(as.numeric(cf), ncol=ncol(cf), nrow=nrow(cf), dimnames=dimnames(cf))
-      dat[[paste0("pred.", p)]] <- unname(rowSums(dat[,c("Intercept","age","age2","height2")]*cf))
+      dat[[paste0("LLN.", p)]] <- unname(rowSums(dat[,c("Intercept","age","age2","height2")]*cf))
     }
   }
 
-  return(dat[,grep("pred", names(dat), fixed=TRUE)])
+  return(dat[,grep("LLN", names(dat), fixed=TRUE)])
 
 }
 
