@@ -18,9 +18,6 @@ raw_GLIgl(age, height, gender = 1, FEV1 = NULL, FVC = NULL, FEV1FVC = NULL)
 \item{FVC}{Forced Vital Capacity (z-score)}
 
 \item{FEV1FVC}{FEV1 / FVC (as z-score)}
-
-\item{ethnicity}{Ethnicity (1 = Caucasian, 2 = African-American, 3 = NE Asian, 4 = SE Asian,
-5 = Other/mixed). Default is 1.}
 }
 \value{
 If only one spirometry z-score argument is supplied, the function

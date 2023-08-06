@@ -7,8 +7,6 @@
 #' @param age Age in years
 #' @param height Height in meters
 #' @param gender Gender (1 = male, 2 = female) or a factor with two levels (first = male). Default is 1.
-#' @param ethnicity Ethnicity (1 = Caucasian, 2 = African-American, 3 = NE Asian, 4 = SE Asian,
-#' 5 = Other/mixed). Default is 1.
 #' @param FEV1 Forced Expiratory Volume in 1 second (z-score)
 #' @param FVC Forced Vital Capacity (z-score)
 #' @param FEV1FVC FEV1 / FVC (as z-score)
