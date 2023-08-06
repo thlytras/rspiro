@@ -32,7 +32,7 @@ zscore_GLI(
 
 \item{FVC}{Forced Vital Capacity (lt)}
 
-\item{FEV1FVC}{FEV1 / FVC * 100\%}
+\item{FEV1FVC}{FEV1 / FVC}
 
 \item{FEF2575}{Forced Expiratory Flow between 25\% and 75\% of FVC (lt/s)}
 
@@ -40,7 +40,7 @@ zscore_GLI(
 
 \item{FEV075}{Forced Expiratory Volume in 0.75 sec (lt)}
 
-\item{FEV075FVC}{FEV0.75 / FVC * 100\%}
+\item{FEV075FVC}{FEV0.75 / FVC}
 }
 \value{
 If only one spirometry argument is supplied, the function
