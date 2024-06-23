@@ -37,11 +37,21 @@ JRS_lookup <- do.call(rbind, lapply(2:5, function(i) {
 }))
 
 
+# GLI diffusing capacity equations (2017, corrected 2020)
+GLIdiff_SI <- lapply(1:6, function(i) as.data.frame(read_excel("inline-supplementary-material-2.xlsx", i))[,-1])
+GLIdiff_trad <- lapply(1:6, function(i) as.data.frame(read_excel("inline-supplementary-material-3.xlsx", i))[,-1])
+l <- unique(sapply(GLIdiff_trad, nrow))
+GLIdiff_lookup <- list(SI = do.call(rbind, GLIdiff_SI), trad = do.call(rbind, GLIdiff_trad))
+names(GLIdiff_lookup$SI)[1] <- names(GLIdiff_lookup$trad)[1] <- "agebound"
+GLIdiff_lookup$SI$gender <- GLIdiff_lookup$trad$gender <- rep(1:2, each=l)
+GLIdiff_lookup$SI$f <- GLIdiff_lookup$trad$f <- rep(c("TLCO", "KCO", "VA"), each=l*2)
+
+
 # Load the NHANES data:
 NHtb45 <- read.table(file="NHtb45.csv", header = TRUE, sep = ",")
 NHtb6 <- read.table(file="NHtb6.csv", header = TRUE, sep = ",")
 
 
 cat("Creating sysdata.rda...\n")
-usethis::use_data(NHtb45, NHtb6, lookup, GLIgl_lookup, JRS_lookup, internal=TRUE)
+usethis::use_data(NHtb45, NHtb6, lookup, GLIgl_lookup, JRS_lookup, GLIdiff_lookup, internal=TRUE)
 

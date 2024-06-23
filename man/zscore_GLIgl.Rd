@@ -31,7 +31,7 @@ them to z-scores based on the GLI global (2022) equations.
 }
 \details{
 At least one of the spirometric measurement arguments must be set (i.e. be
-non-\code{NULL}). Arguments \code{age}, \code{height}, and \code{gender}
+non-\code{NULL}). Arguments \code{age}, \code{height} and \code{gender}
 must be vectors of length equal to the length of the
 spirometric measurement vector(s), or of length one, in which case their
 value is recycled. If any input vector is not of equal length, the function

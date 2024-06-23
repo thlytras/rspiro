@@ -4,7 +4,15 @@
 \alias{rspiro_check_somat}
 \title{Check somatometric input data}
 \usage{
-rspiro_check_somat(age, height, gender, ethnicity, NHANES = FALSE, JRS = FALSE)
+rspiro_check_somat(
+  age,
+  height,
+  gender,
+  ethnicity,
+  NHANES = FALSE,
+  JRS = FALSE,
+  diff = FALSE
+)
 }
 \arguments{
 \item{age}{Age in years}
@@ -18,6 +26,12 @@ rspiro_check_somat(age, height, gender, ethnicity, NHANES = FALSE, JRS = FALSE)
 2 = African-American, 3 = Mexican-American)}
 
 \item{NHANES}{Logical. Is input data for the NHANES III equations? 
+Defaults to \code{FALSE}.}
+
+\item{JRS}{Logical. Is input data for the JRS equations? 
+Defaults to \code{FALSE}.}
+
+\item{diff}{Logical. Is input data for the GLI diffusing capacity equations? 
 Defaults to \code{FALSE}.}
 }
 \value{

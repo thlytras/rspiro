@@ -1,8 +1,9 @@
 ### rspiro - Spirometry equations for R
 
 Package `rspiro` implements multiple spirometry equations: currently
-the GLI-2012 (Quanjer), race-neutral GLI global (2022), NHANES III (Hankinson)
-and JRS-2014, with potentially more to be added later. 
+the GLI-2012 (Quanjer), race-neutral GLI global (2022), JRS-2014, NHANES III (Hankinson)
+as well as the GLI-2017 diffusing capacity equations (Stanojevic et al). 
+More may be added later. 
 
 It offers user-friendly functions to calculate predicted or LLN 
 (Lower Limit of Normal) values given demographic data, or to convert 

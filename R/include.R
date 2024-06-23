@@ -13,10 +13,14 @@
 #'   2 = African-American, 3 = Mexican-American)
 #' @param NHANES Logical. Is input data for the NHANES III equations? 
 #'   Defaults to \code{FALSE}.
+#' @param JRS Logical. Is input data for the JRS equations? 
+#'   Defaults to \code{FALSE}.
+#' @param diff Logical. Is input data for the GLI diffusing capacity equations? 
+#'   Defaults to \code{FALSE}.
 #'
 #' @return Returns a data frame with these four columns plus a column 'agebound', which is
 #' age rounded to the lowest 0.25 of the year.
-rspiro_check_somat <- function(age, height, gender, ethnicity, NHANES=FALSE, JRS=FALSE) {
+rspiro_check_somat <- function(age, height, gender, ethnicity, NHANES=FALSE, JRS=FALSE, diff=FALSE) {
   mlen <- max(length(age), length(height), length(gender), length(ethnicity))
   if (length(age)==1) age <- rep(age, mlen)
   if (length(height)==1) height <- rep(height, mlen)
@@ -24,13 +28,17 @@ rspiro_check_somat <- function(age, height, gender, ethnicity, NHANES=FALSE, JRS
   if (length(ethnicity)==1) ethnicity <- rep(ethnicity, mlen)
   if (length(unique(c(length(age), length(height), length(gender), length(ethnicity))))>1)
     stop("All supplied vectors (age, height, gender, ethnicity) must have the same length.", call.=FALSE)
-  if (!JRS && (min(age, na.rm=TRUE)<3 || max(age, na.rm=TRUE)>95)) {
-    age[which(age<3 | age>95)] <- NA
-    warning("Age cannot be lower than 3 years or higher than 95 years. Returning NA.", call.=FALSE)
+  if (diff && (min(age, na.rm=TRUE)<5 || max(age, na.rm=TRUE)>90)) {
+    age[which(age<5 | age>90)] <- NA
+    warning("Age cannot be lower than 5 years or higher than 90 years. Returning NA.", call.=FALSE)
   }
   if (JRS && (min(age, na.rm=TRUE)<17 || max(age, na.rm=TRUE)>95)) {
     age[which(age<17 | age>95)] <- NA
     warning("Age cannot be lower than 17 years or higher than 95 years. Returning NA.", call.=FALSE)
+  }
+  if (!JRS && (min(age, na.rm=TRUE)<3 || max(age, na.rm=TRUE)>95)) {
+    age[which(age<3 | age>95)] <- NA
+    warning("Age cannot be lower than 3 years or higher than 95 years. Returning NA.", call.=FALSE)
   }
   if (min(as.integer(gender), na.rm=TRUE)<1 || max(as.integer(gender), na.rm=TRUE)>2) {
     gender[which(!(as.integer(gender) %in% 1:2))] <- NA

@@ -14,6 +14,8 @@ Description: Implementation of various spirometry equations
     Hankinson et al. 1999 <doi:10.1164/ajrccm.159.1.9712108>)
     and the JRS 2014 (Japanese Respiratory Society; Kubota
     et al. 2014 <doi:10.1016/j.resinv.2014.03.003>) equations.
+    Also the GLI-2017 diffusing capacity equations 
+    <doi:10.1183/13993003.00010-2017> are implemented.
     Contains user-friendly functions to calculate predicted 
     and LLN (Lower Limit of Normal) values for different 
     spirometric parameters such as FEV1 (Forced Expiratory 

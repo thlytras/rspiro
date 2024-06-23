@@ -36,7 +36,7 @@ pctpred_JRS <- function(age, height, gender=1,
   spiro_val <- list(FEV1=FEV1, FVC=FVC, VC=VC, FEV1FVC=FEV1FVC)
   spiro_val <- spiro_val[!sapply(spiro_val, is.null)]
   spiro_val_len <- unique(sapply(spiro_val, length))
-  somat_val <- rspiro_check_somat(age, height, gender, 1)
+  somat_val <- rspiro_check_somat(age, height, gender, 1, JRS=TRUE)
   rspiro_check_input(spiro_val, somat_val)
   
   param <- names(spiro_val)
