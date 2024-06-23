@@ -1,14 +1,15 @@
-#' Convert spirometric values to \% predicted using GLI global (2022) equations
+#' Convert spirometric values to \% predicted using JRS (2014) equations
 #'
-#' This function takes absolute spirometry measurements (FEV1, FVC or FEV1FVC)
+#' This function takes absolute spirometry measurements (FEV1, FVC, VC or FEV1FVC)
 #' in lt plus demographic data (age, height, gender) and converts
-#' them to percent (\%) predicted based on the GLI global (2022) equations.
+#' them to percent (\%) predicted based on the JRS (Japanese Respiratory Society 2014) equations.
 #'
 #' @param age Age in years
 #' @param height Height in meters
 #' @param gender Gender (1 = male, 2 = female) or a factor with two levels (first = male). Default is 1.
 #' @param FEV1 Forced Expiratory Volume in 1 second (lt)
 #' @param FVC Forced Vital Capacity (lt)
+#' @param VC Vital Capacity (lt)
 #' @param FEV1FVC FEV1 / FVC ratio
 #'
 #' @details At least one of the spirometric measurement arguments must be set (i.e. be
@@ -24,22 +25,22 @@
 #'
 #' @examples
 #' # Random data, 4 patients, one parameter supplied (FEV1)
-#' pctpred_GLIgl(age=seq(25,40,5), height=c(1.8, 1.9, 1.75, 1.85),
+#' pctpred_JRS(age=seq(25,40,5), height=c(1.8, 1.9, 1.75, 1.85),
 #'       gender=c(2,1,2,1), FEV1=c(3.5, 4, 3.6, 3.9))
 #'
 #' @importFrom stats reshape
 #' 
 #' @export
-pctpred_GLIgl <- function(age, height, gender=1, 
-        FEV1=NULL, FVC=NULL, FEV1FVC=NULL) {
-  spiro_val <- list(FEV1=FEV1, FVC=FVC, FEV1FVC=FEV1FVC)
+pctpred_JRS <- function(age, height, gender=1, 
+        FEV1=NULL, FVC=NULL, VC=NULL, FEV1FVC=NULL) {
+  spiro_val <- list(FEV1=FEV1, FVC=FVC, VC=VC, FEV1FVC=FEV1FVC)
   spiro_val <- spiro_val[!sapply(spiro_val, is.null)]
   spiro_val_len <- unique(sapply(spiro_val, length))
   somat_val <- rspiro_check_somat(age, height, gender, 1)
   rspiro_check_input(spiro_val, somat_val)
   
   param <- names(spiro_val)
-  dat <- with(somat_val, getLMS_GLIgl(age, height, gender, param))
+  dat <- with(somat_val, getLMS_JRS(age, height, gender, param))
   if (nrow(dat)==1 && spiro_val_len>1) {
     dat <- dat[rep(1,spiro_val_len),]
     rownames(dat) <- NULL

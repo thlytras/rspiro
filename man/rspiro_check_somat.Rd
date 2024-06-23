@@ -4,7 +4,7 @@
 \alias{rspiro_check_somat}
 \title{Check somatometric input data}
 \usage{
-rspiro_check_somat(age, height, gender, ethnicity, NHANES = FALSE)
+rspiro_check_somat(age, height, gender, ethnicity, NHANES = FALSE, JRS = FALSE)
 }
 \arguments{
 \item{age}{Age in years}

@@ -2,7 +2,8 @@
 #' 
 #' @description
 #' R package \bold{rspiro} implements multiple spirometry equations: 
-#' currently the GLI-2012 (Quanjer) and NHANES III (Hankinson), with 
+#' currently the GLI-2012 (Quanjer), GLI global 2022, JRS-2014 
+#' and NHANES III (Hankinson), with 
 #' potentially more to be added later. It offers a convenient interface
 #' to calculate predicted or LLN (Lower Limit of Normal) values given
 #' demographic data, or to convert absolute spirometry values to percent (%) 
@@ -13,7 +14,7 @@
 #' package functions are named with a prefix indicating the functionality 
 #' and a suffix indicating the spirometric equations used, for example 
 #' \code{\link{LLN_GLI}} calculates Lower Limits of Normal using the GLI-2012
-#' equations. The suffix is currently one of 'GLI' or 'NHANES3'. 
+#' equations. The suffix is currently one of 'GLI', 'GLIgl', 'JRS' or 'NHANES3'. 
 #' The prefix is one of 'LLN_', 'pred_', 'pctpred_' or 'zscore_'. 
 #' 
 #' Functions
@@ -37,8 +38,6 @@
 #' @name rspiro-package
 #' 
 #' @aliases rspiro-package rspiro
-#' 
-#' @docType package
 #' 
 #' @author Theodore Lytras \email{thlytras@@gmail.com}.
 #' 

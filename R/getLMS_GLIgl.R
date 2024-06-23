@@ -26,7 +26,7 @@ getLMS_GLIgl <- function(age, height, gender=1, param="FEV1") {
     stop("You must specify at least one parameter to calculate.")
   if (sum(!(param %in% c("FEV1", "FVC", "FEV1FVC")))>0)
     stop(sprintf("Argument 'param' must be one or more of \"%s\".",
-        paste(levels(lookup$f), collapse='", "')))
+        paste(unique(GLIgl_lookup$f), collapse='", "')))
   dat <- rspiro_check_somat(age, height, gender, 1)
   dat$id <- 1:nrow(dat)
   dat$ethnicity <- NULL

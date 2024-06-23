@@ -16,7 +16,7 @@
 #'
 #' @return Returns a data frame with these four columns plus a column 'agebound', which is
 #' age rounded to the lowest 0.25 of the year.
-rspiro_check_somat <- function(age, height, gender, ethnicity, NHANES=FALSE) {
+rspiro_check_somat <- function(age, height, gender, ethnicity, NHANES=FALSE, JRS=FALSE) {
   mlen <- max(length(age), length(height), length(gender), length(ethnicity))
   if (length(age)==1) age <- rep(age, mlen)
   if (length(height)==1) height <- rep(height, mlen)
@@ -24,9 +24,13 @@ rspiro_check_somat <- function(age, height, gender, ethnicity, NHANES=FALSE) {
   if (length(ethnicity)==1) ethnicity <- rep(ethnicity, mlen)
   if (length(unique(c(length(age), length(height), length(gender), length(ethnicity))))>1)
     stop("All supplied vectors (age, height, gender, ethnicity) must have the same length.", call.=FALSE)
-  if (min(age, na.rm=TRUE)<3 || max(age, na.rm=TRUE)>95) {
+  if (!JRS && (min(age, na.rm=TRUE)<3 || max(age, na.rm=TRUE)>95)) {
     age[which(age<3 | age>95)] <- NA
     warning("Age cannot be lower than 3 years or higher than 95 years. Returning NA.", call.=FALSE)
+  }
+  if (JRS && (min(age, na.rm=TRUE)<17 || max(age, na.rm=TRUE)>95)) {
+    age[which(age<17 | age>95)] <- NA
+    warning("Age cannot be lower than 17 years or higher than 95 years. Returning NA.", call.=FALSE)
   }
   if (min(as.integer(gender), na.rm=TRUE)<1 || max(as.integer(gender), na.rm=TRUE)>2) {
     gender[which(!(as.integer(gender) %in% 1:2))] <- NA

@@ -19,11 +19,29 @@ GLIgl_lookup$gender <- rep(1:2, each=l*3)  # 1 = Male, 2 = Female
 GLIgl_lookup$f <- rep(c("FEV1", "FVC", "FEV1FVC"), each=l)
 
 
+# JRS equations (2014)
+JRS_sheets <- c(NA, "FEV1", "FVC", "VC", "FEV1FVC")
+JRS_lookup <- do.call(rbind, lapply(2:5, function(i) {
+  res <- suppressWarnings(as.data.frame(read_excel("1-s2.0-S2212534514000288-mmc1.xlsx", i, skip=2, col_types="numeric")))
+  if (ncol(res)<7) {
+    names(res) <- c("agebound", "Mspline", "Sspline", "Mspline", "Sspline")
+    res$Lspline <- NA
+    res <- rbind(res[,c(1,6,2,3)], res[,c(1,6,4,5)])
+  } else {
+    names(res) <- c("agebound", "Lspline", "Mspline", "Sspline", "Lspline", "Mspline", "Sspline")
+    res <- rbind(res[,c(1:4)], res[,c(1,5:7)])
+  }
+  res$gender <- rep(1:2, each=nrow(res)/2)
+  res$f <- JRS_sheets[i]
+  res
+}))
+
+
 # Load the NHANES data:
 NHtb45 <- read.table(file="NHtb45.csv", header = TRUE, sep = ",")
 NHtb6 <- read.table(file="NHtb6.csv", header = TRUE, sep = ",")
 
 
 cat("Creating sysdata.rda...\n")
-usethis::use_data(NHtb45, NHtb6, lookup, GLIgl_lookup, internal=TRUE)
+usethis::use_data(NHtb45, NHtb6, lookup, GLIgl_lookup, JRS_lookup, internal=TRUE)
 
