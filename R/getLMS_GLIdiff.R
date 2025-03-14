@@ -47,7 +47,7 @@ getLMS_GLIdiff <- function(age, height, gender=1, param="TLCO", SI=TRUE) {
   
   # From here on we calculate the L,M,S according to different equations...
   
-  s <- dat$gender==1 & dat$f=="TLCO"
+  s <- dat$gender==1 & dat$f=="TLCO" & !is.na(dat$gender)
   if (SI) {
     dat$M[s] <- with(dat, exp(-8.129189 + 2.018368*log(height[s]*100) - 0.012425*log(age[s]) + Mspline[s]))
   } else {
@@ -56,7 +56,7 @@ getLMS_GLIdiff <- function(age, height, gender=1, param="TLCO", SI=TRUE) {
   dat$S[s] <- with(dat, exp(-1.98996 + 0.03536*log(age[s]) + Sspline[s]))
   dat$L[s] <- 0.39482
   
-  s <- dat$gender==1 & dat$f=="KCO"
+  s <- dat$gender==1 & dat$f=="KCO" & !is.na(dat$gender)
   if (SI) {
     dat$M[s] <- with(dat, exp(2.994137 - 0.415334*log(height[s]*100) - 0.113166*log(age[s]) + Mspline[s]))
   } else {
@@ -65,12 +65,12 @@ getLMS_GLIdiff <- function(age, height, gender=1, param="TLCO", SI=TRUE) {
   dat$S[s] <- with(dat, exp(-1.98186 + 0.01460*log(age[s]) + Sspline[s]))
   dat$L[s] <- 0.67330
   
-  s <- dat$gender==1 & dat$f=="VA"
+  s <- dat$gender==1 & dat$f=="VA" & !is.na(dat$gender)
   dat$M[s] <- with(dat, exp(-11.086573 + 2.430021*log(height[s]*100) + 0.097047*log(age[s]) + Mspline[s]))
   dat$S[s] <- with(dat, exp(-2.20953 + 0.01937*log(age[s]) + Sspline[s]))
   dat$L[s] <- 0.62559
     
-  s <- dat$gender==2 & dat$f=="TLCO"
+  s <- dat$gender==2 & dat$f=="TLCO" & !is.na(dat$gender)
   if (SI) {
     dat$M[s] <- with(dat, exp(-6.253720 + 1.618697*log(height[s]*100) - 0.015390*log(age[s]) + Mspline[s]))
   } else {
@@ -79,7 +79,7 @@ getLMS_GLIdiff <- function(age, height, gender=1, param="TLCO", SI=TRUE) {
   dat$S[s] <- with(dat, exp(-1.82905 - 0.01815*log(age[s]) + Sspline[s]))
   dat$L[s] <- 0.24160
   
-  s <- dat$gender==2 & dat$f=="KCO"
+  s <- dat$gender==2 & dat$f=="KCO" & !is.na(dat$gender)
   if (SI) {
     dat$M[s] <- with(dat, exp(4.037222 - 0.645656*log(height[s]*100) - 0.097395*log(age[s]) + Mspline[s]))
   } else {
@@ -88,7 +88,7 @@ getLMS_GLIdiff <- function(age, height, gender=1, param="TLCO", SI=TRUE) {
   dat$S[s] <- with(dat, exp(-1.63787 - 0.07757*log(age[s]) + Sspline[s]))
   dat$L[s] <- 0.48963
   
-  s <- dat$gender==2 & dat$f=="VA"
+  s <- dat$gender==2 & dat$f=="VA" & !is.na(dat$gender)
   dat$M[s] <- with(dat, exp(-9.873970 + 2.182316*log(height[s]*100) + 0.082868*log(age[s]) + Mspline[s]))
   dat$S[s] <- with(dat, exp(-2.08839 - 0.01334*log(age[s]) + Sspline[s]))
   dat$L[s] <- 0.51919

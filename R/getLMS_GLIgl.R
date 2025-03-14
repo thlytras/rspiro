@@ -40,32 +40,32 @@ getLMS_GLIgl <- function(age, height, gender=1, param="FEV1") {
   
   # From here on we calculate the L,M,S according to different equations...
   
-  s <- dat$gender==1 & dat$f=="FEV1"
+  s <- dat$gender==1 & dat$f=="FEV1" & !is.na(dat$gender)
   dat$M[s] <- with(dat, exp(-11.399108 + 2.462664*log(height[s]*100) - 0.011394*log(age[s]) + Mspline[s]))
   dat$S[s] <- with(dat, exp(-2.256278 + 0.080729*log(age[s]) + Sspline[s]))
   dat$L[s] <- 1.22703
   
-  s <- dat$gender==1 & dat$f=="FVC"
+  s <- dat$gender==1 & dat$f=="FVC" & !is.na(dat$gender)
   dat$M[s] <- with(dat, exp(-12.629131 + 2.727421*log(height[s]*100) + 0.009174*log(age[s]) + Mspline[s]))
   dat$S[s] <- with(dat, exp(-2.195595 + 0.068466*log(age[s]) + Sspline[s]))
   dat$L[s] <- 0.9346
   
-  s <- dat$gender==1 & dat$f=="FEV1FVC"
+  s <- dat$gender==1 & dat$f=="FEV1FVC" & !is.na(dat$gender)
   dat$M[s] <- with(dat, exp(1.022608 - 0.218592*log(height[s]*100) - 0.027586*log(age[s]) + Mspline[s]))
   dat$S[s] <- with(dat, exp(-2.882025 + 0.068889*log(age[s]) + Sspline[s]))
   dat$L[s] <- with(dat, 3.8243 - 0.3328*log(age[s]))
   
-  s <- dat$gender==2 & dat$f=="FEV1"
+  s <- dat$gender==2 & dat$f=="FEV1" & !is.na(dat$gender)
   dat$M[s] <- with(dat, exp(-10.901689 + 2.385928*log(height[s]*100) - 0.076386*log(age[s]) + Mspline[s]))
   dat$S[s] <- with(dat, exp(-2.364047 + 0.129402*log(age[s]) + Sspline[s]))
   dat$L[s] <- 1.21388
   
-  s <- dat$gender==2 & dat$f=="FVC"
+  s <- dat$gender==2 & dat$f=="FVC" & !is.na(dat$gender)
   dat$M[s] <- with(dat, exp(-12.055901 + 2.621579*log(height[s]*100) - 0.035975*log(age[s]) + Mspline[s]))
   dat$S[s] <- with(dat, exp(-2.310148 + 0.120428*log(age[s]) + Sspline[s]))
   dat$L[s] <- 0.899
   
-  s <- dat$gender==2 & dat$f=="FEV1FVC"
+  s <- dat$gender==2 & dat$f=="FEV1FVC" & !is.na(dat$gender)
   dat$M[s] <- with(dat, exp(0.9189568 - 0.1840671*log(height[s]*100) - 0.0461306*log(age[s]) + Mspline[s]))
   dat$S[s] <- with(dat, exp(-3.171582 + 0.144358*log(age[s]) + Sspline[s]))
   dat$L[s] <- with(dat, 6.6490 - 0.9920*log(age[s]))

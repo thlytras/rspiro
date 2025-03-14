@@ -36,6 +36,31 @@ test_that("inputs are checked", {
     "Spirometry z-scores must be numeric.",
     fixed = TRUE
   )
+
+  # missing gender returns missing without error
+  expect_no_error(
+    suppressWarnings(zscore_GLI(
+      age=seq(25,40,5), height=c(1.8, 1.9, 1.75, 1.85),
+      gender=c(2,1,2,NA_real_), FEV1=c(3.5, 4, 3.6, 3.9)))
+  )
+
+  expect_true(
+    is.na(suppressWarnings(zscore_GLI(
+      age=c(25), height=c(1.8),
+      gender=c(NA_real_), FEV1=c(3.5)))))
+
+  
+  expect_no_error(
+    suppressWarnings(zscore_GLIgl(
+      age=seq(25,40,5), height=c(1.8, 1.9, 1.75, 1.85),
+      gender=c(2,1,2,NA_real_), FEV1=c(3.5, 4, 3.6, 3.9)))
+  )
+
+  expect_true(
+    is.na(suppressWarnings(zscore_GLIgl(
+      age=c(25), height=c(1.8),
+      gender=c(NA_real_), FEV1=c(3.5)))))
+      
   # illegal value for gender
 #   expect_error(
 #     zscore_GLI(
