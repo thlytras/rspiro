@@ -89,7 +89,7 @@ rspiro_check_input <- function(spiro_val, somat_val) {
     stop("If somatometric (age, height, gender, ethnicity) are not length 1, they must all be specified and be the same length as spirometry z-score parameter vectors.")
   if(!all(is.numeric(unlist(spiro_val))))
     stop("Spirometry z-scores must be numeric.")
-  if (!(all(as.character(somat_val$gender) %in% c('1','2')) || ((is.factor(somat_val$gender) && (length(levels(somat_val$gender))==2)))))
+  if (!(all(as.character(somat_val$gender) %in% c('1','2', NA_character_)) || ((is.factor(somat_val$gender) && (length(levels(somat_val$gender))==2)))))
     stop("Invalid value supplied for gender")
   if (is.factor(somat_val$gender) && grepl('[fFwW]', levels(somat_val$gender)[1]))
     message(sprintf("First level of factor gender ('%s') is assumed to be male.", levels(somat_val$gender)[1]))

@@ -41,42 +41,42 @@ getLMS_JRS <- function(age, height, gender=1, param="FEV1") {
   
   # From here on we calculate the L,M,S according to different equations...
   
-  s <- dat$gender==1 & dat$f=="FEV1"
+  s <- dat$gender==1 & dat$f=="FEV1" & !is.na(dat$gender)
   dat$M[s] <- with(dat, exp(-7.5722 + 1.9393*log(height[s]*100) - 0.3068*log(age[s]) + Mspline[s]))
   dat$S[s] <- with(dat, exp(-3.0440 + 0.2325*log(age[s]) + Sspline[s]))
   dat$L[s] <- 1
   
-  s <- dat$gender==1 & dat$f=="FVC"
+  s <- dat$gender==1 & dat$f=="FVC" & !is.na(dat$gender)
   dat$M[s] <- with(dat, exp(-8.8877 + 2.1494*log(height[s]*100) - 0.1891*log(age[s]) + Mspline[s]))
   dat$S[s] <- with(dat, exp(-2.8335 + 0.1726*log(age[s]) + Sspline[s]))
   dat$L[s] <- 1
   
-  s <- dat$gender==1 & dat$f=="VC"
+  s <- dat$gender==1 & dat$f=="VC" & !is.na(dat$gender)
   dat$M[s] <- with(dat, exp(-8.8317 + 2.1043*log(height[s]*100) - 0.1382*log(age[s]) + Mspline[s]))
   dat$S[s] <- with(dat, exp(-2.3730 + 0.0450*log(age[s]) + Sspline[s]))
   dat$L[s] <- 0.3464
   
-  s <- dat$gender==1 & dat$f=="FEV1FVC"
+  s <- dat$gender==1 & dat$f=="FEV1FVC" & !is.na(dat$gender)
   dat$M[s] <- with(dat, exp(1.2578 - 0.1948*log(height[s]*100) - 0.1220*log(age[s]) + Mspline[s]))
   dat$S[s] <- with(dat, exp(-3.266 + 0.150*log(age[s]) + Sspline[s]))
   dat$L[s] <- with(dat, 8.905 - 1.799*log(age[s]) + Lspline[s])
   
-  s <- dat$gender==2 & dat$f=="FEV1"
+  s <- dat$gender==2 & dat$f=="FEV1" & !is.na(dat$gender)
   dat$M[s] <- with(dat, exp(-6.9428 + 1.8053*log(height[s]*100) - 0.3401*log(age[s]) + Mspline[s]))
   dat$S[s] <- with(dat, exp(-3.1024 + 0.2537*log(age[s]) + Sspline[s]))
   dat$L[s] <- 0.7783
   
-  s <- dat$gender==2 & dat$f=="FVC"
+  s <- dat$gender==2 & dat$f=="FVC" & !is.na(dat$gender)
   dat$M[s] <- with(dat, exp(-8.3268 + 2.0137*log(height[s]*100) - 0.2029*log(age[s]) + Mspline[s]))
   dat$S[s] <- with(dat, exp(-2.8527 + 0.1881*log(age[s]) + Sspline[s]))
   dat$L[s] <- 0.6127
   
-  s <- dat$gender==2 & dat$f=="VC"
+  s <- dat$gender==2 & dat$f=="VC" & !is.na(dat$gender)
   dat$M[s] <- with(dat, exp(-8.0707 + 1.9399*log(height[s]*100) - 0.1678*log(age[s]) + Mspline[s]))
   dat$S[s] <- with(dat, exp(-2.7071 + 0.1447*log(age[s]) + Sspline[s]))
   dat$L[s] <- 0.1268
   
-  s <- dat$gender==2 & dat$f=="FEV1FVC"
+  s <- dat$gender==2 & dat$f=="FEV1FVC" & !is.na(dat$gender)
   dat$M[s] <- with(dat, exp(1.2854 - 0.1844*log(height[s]*100) - 0.1425*log(age[s]) + Mspline[s]))
   dat$S[s] <- with(dat, exp(-3.1624 + 0.1068*log(age[s]) + Sspline[s]))
   dat$L[s] <- with(dat, 12.989 - 2.987*log(age[s]) + Lspline[s])
