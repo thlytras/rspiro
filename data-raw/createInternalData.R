@@ -52,6 +52,35 @@ NHtb45 <- read.table(file="NHtb45.csv", header = TRUE, sep = ",")
 NHtb6 <- read.table(file="NHtb6.csv", header = TRUE, sep = ",")
 
 
+
+# GLI-2019 static lung volume  (Hall et al, ERJ 2021)
+sheets_vol <- excel_sheets("static_vol_inline-supplementary-material-2.xlsx")
+parse_sheet_name <- function(sheet_names) {
+  cleaned <- gsub("_lookuptable", "", sheet_names, ignore.case = TRUE)
+  parts <- strsplit(cleaned, "_")
+  param  <- toupper(sapply(parts, `[`, 1))   # "frc" -> "FRC"
+  sex_letter    <- sapply(parts, `[`, 2)             # "m" or "f"
+  gender <- ifelse(sex_letter == "m", 1, 2)          # 1 = male, 2 = female
+
+  list(gender = gender, param = param)
+}
+
+meta   <- parse_sheet_name(sheets_vol)
+
+# Read all sheets into a list, named by sheet name
+GLIvol_list   <- lapply(sheets_vol,   function(s) as.data.frame(read_excel("static_vol_inline-supplementary-material-2.xlsx", sheet=s)))
+names(GLIvol_list)   <- sheets_vol
+
+# Stack all sheets and add gender/param columns
+GLIvol_lookup <- do.call(rbind, GLIvol_list)
+names(GLIvol_lookup)[1] <- "agebound"
+GLIvol_lookup$gender    <- rep(meta$gender, times = sapply(GLIvol_list, nrow))
+GLIvol_lookup$f         <- rep(meta$param,  times = sapply(GLIvol_list, nrow))
+
+# Reset rownames
+rownames(GLIvol_lookup) <- NULL
+
+
 cat("Creating sysdata.rda...\n")
-usethis::use_data(NHtb45, NHtb6, lookup, GLIgl_lookup, JRS_lookup, GLIdiff_lookup, internal=TRUE)
+usethis::use_data(NHtb45, NHtb6, lookup, GLIgl_lookup, JRS_lookup, GLIdiff_lookup, GLIvol_lookup, internal=TRUE, overwrite = TRUE)
 

@@ -11,7 +11,8 @@ rspiro_check_somat(
   ethnicity,
   NHANES = FALSE,
   JRS = FALSE,
-  diff = FALSE
+  diff = FALSE,
+  vol = FALSE
 )
 }
 \arguments{
@@ -21,17 +22,20 @@ rspiro_check_somat(
 
 \item{gender}{Gender (1 = male, 2 = female) or a factor with two levels (first = male)}
 
-\item{ethnicity}{Ethnicity (GLI: 1 = Caucasian, 2 = African-American, 
-3 = NE Asian, 4 = SE Asian, 5 = Other/mixed, NHANES: 1 = Caucasian, 
+\item{ethnicity}{Ethnicity (GLI: 1 = Caucasian, 2 = African-American,
+3 = NE Asian, 4 = SE Asian, 5 = Other/mixed, NHANES: 1 = Caucasian,
 2 = African-American, 3 = Mexican-American)}
 
-\item{NHANES}{Logical. Is input data for the NHANES III equations? 
+\item{NHANES}{Logical. Is input data for the NHANES III equations?
 Defaults to \code{FALSE}.}
 
-\item{JRS}{Logical. Is input data for the JRS equations? 
+\item{JRS}{Logical. Is input data for the JRS equations?
 Defaults to \code{FALSE}.}
 
-\item{diff}{Logical. Is input data for the GLI diffusing capacity equations? 
+\item{diff}{Logical. Is input data for the GLI diffusing capacity equations?
+Defaults to \code{FALSE}.}
+
+\item{vol}{Logical. Is input data for the GLI-2019 static lung volume equations?
 Defaults to \code{FALSE}.}
 }
 \value{

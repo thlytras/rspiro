@@ -8,19 +8,21 @@
 #' @param age Age in years
 #' @param height Height in meters
 #' @param gender Gender (1 = male, 2 = female) or a factor with two levels (first = male)
-#' @param ethnicity Ethnicity (GLI: 1 = Caucasian, 2 = African-American, 
-#'   3 = NE Asian, 4 = SE Asian, 5 = Other/mixed, NHANES: 1 = Caucasian, 
+#' @param ethnicity Ethnicity (GLI: 1 = Caucasian, 2 = African-American,
+#'   3 = NE Asian, 4 = SE Asian, 5 = Other/mixed, NHANES: 1 = Caucasian,
 #'   2 = African-American, 3 = Mexican-American)
-#' @param NHANES Logical. Is input data for the NHANES III equations? 
+#' @param NHANES Logical. Is input data for the NHANES III equations?
 #'   Defaults to \code{FALSE}.
-#' @param JRS Logical. Is input data for the JRS equations? 
+#' @param JRS Logical. Is input data for the JRS equations?
 #'   Defaults to \code{FALSE}.
-#' @param diff Logical. Is input data for the GLI diffusing capacity equations? 
+#' @param diff Logical. Is input data for the GLI diffusing capacity equations?
+#'   Defaults to \code{FALSE}.
+#' @param vol Logical. Is input data for the GLI-2019 static lung volume equations?
 #'   Defaults to \code{FALSE}.
 #'
 #' @return Returns a data frame with these four columns plus a column 'agebound', which is
 #' age rounded to the lowest 0.25 of the year.
-rspiro_check_somat <- function(age, height, gender, ethnicity, NHANES=FALSE, JRS=FALSE, diff=FALSE) {
+rspiro_check_somat <- function(age, height, gender, ethnicity, NHANES=FALSE, JRS=FALSE, diff=FALSE, vol=FALSE) {
   mlen <- max(length(age), length(height), length(gender), length(ethnicity))
   if (length(age)==1) age <- rep(age, mlen)
   if (length(height)==1) height <- rep(height, mlen)
@@ -40,6 +42,10 @@ rspiro_check_somat <- function(age, height, gender, ethnicity, NHANES=FALSE, JRS
     age[which(age<3 | age>95)] <- NA
     warning("Age cannot be lower than 3 years or higher than 95 years. Returning NA.", call.=FALSE)
   }
+  if (vol && (min(age, na.rm=TRUE)<5 || max(age, na.rm=TRUE)>80)) {
+    age[which(age<5 | age>80)] <- NA
+    warning("Age cannot be lower than 5 years or higher than 80 years for GLI-2019 lung volumes. Returning NA.", call.=FALSE)
+  }
   if (min(as.integer(gender), na.rm=TRUE)<1 || max(as.integer(gender), na.rm=TRUE)>2) {
     gender[which(!(as.integer(gender) %in% 1:2))] <- NA
     warning("You have specified more than two unique values for gender. Please check your data. Returning NA.", call.=FALSE)
@@ -55,7 +61,7 @@ rspiro_check_somat <- function(age, height, gender, ethnicity, NHANES=FALSE, JRS
     if (min(as.integer(ethnicity), na.rm=TRUE)<1 || max(as.integer(ethnicity), na.rm=TRUE)>5) {
       ethnicity[which(!(as.integer(ethnicity) %in% 1:5))] <- NA
       warning("Ethnicity should be a value between 1 and 5, or a factor with five levels. Please check your data. Returning NA.", call.=FALSE)
-    }  
+    }
   }
   res <- as.data.frame(cbind(age=age, height=height, gender=gender,
     ethnicity=as.integer(ethnicity), agebound=floor(age*4)/4))
